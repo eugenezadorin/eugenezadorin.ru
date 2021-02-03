@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+html, body {
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    color: #222;
+}
+
+body {
+    background: url(../i/bg.png) repeat transparent;
+    margin: 0;
+}
+
+a,
+a:visited {
+    color: #3068cc;
+    border-bottom: 1px solid #3068cc;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    outline: 0;
+    color: red;
+    border-bottom-color: transparent;
+}
+
+.info {
+    height: 100%;
+    margin-left: 60px;
+    padding: 0 25px 0 45px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    transition: margin-left .5s 0s;
+}
+
+.info.swiped {
+    margin-left: 0;
+}
+
+.info h1 {
+    margin: 0;
+    padding-top: 30px;
+    position: relative;
+    left: -3px;
+    font-weight: 400;
+    font-size: 36px;
+}
+
+@media (max-width: 395px) {
+    .info h1 {
+        max-width: 260px;
+    }
+}
+
+.info h1 a,
+.info h1 a:hover,
+.info h1 a:visited,
+.info h1 a:active,
+.info h1 a:focus {
+    color: inherit;
+    text-decoration: none;
+    border: 0;
+}
+
+.info p {
+    margin: 20px 0;
+}
