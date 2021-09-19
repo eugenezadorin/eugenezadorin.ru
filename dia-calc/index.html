@@ -2,27 +2,41 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Diabetes calc</title>
+	<title>Dia Calc</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="app.css">
+	<link rel="stylesheet" type="text/css" href="bulma.min.css">
 </head>
 <body>
-	<h1>Расчет хлебных единиц</h1>
-	<div class="field">
-		<label for="product-weight">Введите вес продукта в граммах</label>
-		<input type="number" id="product-weight" placeholder="Вес продукта, гр.">
-	</div>
-	<div class="field">
-		<label for="carbo-count">Введите количество углеводов на 100 г. продукта</label>
-		<input type="number" id="carbo-count" placeholder="Углеводов на 100 грамм, гр.">
-	</div>
-	<div class="field">
-		<button id="process">Рассчитать</button>
-	</div>
-	<div id="result" class="result"></div>
-	<div class="disclaimer">
-		Рассчитываем по принципу 1 хлебная единица = 12 г. углеводов.
-	</div>
+	<section class="section">
+		<div class="container">
+			<h1 class="title">🥑 Расчет хлебных единиц</h1>
+
+			<div class="field">
+				<label class="label" for="product-weight">Введите вес продукта в граммах</label>
+				<div class="control">
+					<input class="input" type="number" id="product-weight" placeholder="Вес продукта, гр.">
+				</div>
+			</div>
+
+			<div class="field">
+				<label class="label" for="carbo-count">Введите количество углеводов на 100 г. продукта</label>
+				<div class="control">
+					<input class="input" type="number" id="carbo-count" placeholder="Углеводов на 100 грамм, гр.">
+				</div>
+			</div>
+
+			<div class="field is-grouped">
+				<div class="control">
+					<button class="button is-link" id="process">Рассчитать</button>
+				</div>
+				<div class="control">
+					<a class="button is-ghost" href="howto.html">Как мы считаем</a>
+				</div>
+			</div>
+
+			<div id="result" class="result"></div>
+		</div>
+	</section>
 	<script type="text/javascript" src="app.js"></script>
 </body>
 </html>

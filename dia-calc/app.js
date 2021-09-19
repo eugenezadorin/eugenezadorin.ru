@@ -12,28 +12,35 @@
 			return;
 		}
 
-		let productWeight = parseFloat(productWeightField.value).toFixed(2);
+		let productWeight = getFloatValue(productWeightField);
 
-		let carboCountMeasure = parseFloat(carboCountField.value).toFixed(2);
+		let carboCountMeasure = getFloatValue(carboCountField);
 
 		let realCarboCount = (productWeight * carboCountMeasure) / 100;
 		realCarboCount = realCarboCount.toFixed(2);
 
 		let breadItemsCount = (realCarboCount / 12).toFixed(2);
 
-		renderResult(productWeight, breadItemsCount);
+		renderResult(productWeight, realCarboCount, breadItemsCount);
 	});
 
-	function renderResult(productWeight, breadItems) {
-		resultBlock.innerHTML = `В ${productWeight} продукта ${breadItems} хлебных единиц`;
-		resultBlock.classList.add('success');
-		resultBlock.classList.remove('error');
+	function renderResult(productWeight, realCarboCount, breadItems) {
+		let message = `
+			В <strong>${productWeight}</strong> г. продукта: <br><br>
+			<strong>${realCarboCount}</strong> г. углеводов<br>
+			<strong>${breadItems}</strong> хлебных единиц
+		`;
+		resultBlock.innerHTML = `<div class="notification is-success">${message}</div>`;
 	}
 
 	function renderError(message) {
-		resultBlock.innerHTML = message;
-		resultBlock.classList.remove('success');
-		resultBlock.classList.add('error');
+		resultBlock.innerHTML = `<div class="notification is-danger">${message}</div>`;
+	}
+
+	function getFloatValue(node) {
+		let strVal = node.value || '';
+		strVal = strVal.trim().replace(',', '.');
+		return parseFloat(strVal).toFixed(2);
 	}
 
 })();
