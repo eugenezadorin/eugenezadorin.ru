@@ -43,4 +43,13 @@
 		return parseFloat(strVal).toFixed(2);
 	}
 
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('./worker.js')
+			.then((reg) => {
+				// success
+			}).catch((error) => {
+				// error
+			});
+    }
+
 })();
