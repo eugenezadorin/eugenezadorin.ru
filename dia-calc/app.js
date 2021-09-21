@@ -35,13 +35,15 @@
 		`;
 
 		resultBlock.innerHTML = `<div class="notification is-success">${message}</div>`;
+
+		summaryTableItems.push({
+			weight: productWeight,
+			carbo: realCarboCount,
+			bread: breadItems
+		});
+		renderSummaryTable();
+
 		resultBlock.querySelector('#add-new-item').addEventListener('click', () => {
-			summaryTableItems.push({
-				weight: productWeight,
-				carbo: realCarboCount,
-				bread: breadItems
-			});
-			renderSummaryTable();
 			resultBlock.innerHTML = '';
 			carboCountField.value = '';
 			productWeightField.value = '';

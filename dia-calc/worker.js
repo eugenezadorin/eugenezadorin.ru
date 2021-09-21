@@ -2,6 +2,7 @@ const CACHE = 'dia-calc-v2';
 const CACHED_FILES = [
     'app.js',
     'bulma.min.css',
+    'app.css',
     'icon-192x192.png',
     'icon-256x256.png',
     'icon-384x384.png',
