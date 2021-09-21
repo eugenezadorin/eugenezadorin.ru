@@ -4,6 +4,9 @@
 	const carboCountField = document.getElementById('carbo-count');
 	const processButton = document.getElementById('process');
 	const resultBlock = document.getElementById('result');
+	const summaryTable = document.getElementById('summary-table');
+
+	let summaryTableItems = [];
 
 	processButton.addEventListener('click', function() {
 
@@ -17,20 +20,33 @@
 		let carboCountMeasure = getFloatValue(carboCountField);
 
 		let realCarboCount = (productWeight * carboCountMeasure) / 100;
-		realCarboCount = realCarboCount.toFixed(2);
 
-		let breadItemsCount = (realCarboCount / 12).toFixed(2);
+		let breadItemsCount = (realCarboCount / 12);
 
 		renderResult(productWeight, realCarboCount, breadItemsCount);
 	});
 
 	function renderResult(productWeight, realCarboCount, breadItems) {
 		let message = `
-			В <strong>${productWeight}</strong> г. продукта: <br><br>
-			<strong>${realCarboCount}</strong> г. углеводов<br>
-			<strong>${breadItems}</strong> хлебных единиц
+			В <strong>${productWeight.toFixed(2)}</strong> г. продукта: <br><br>
+			<strong>${realCarboCount.toFixed(2)}</strong> г. углеводов<br>
+			<strong>${breadItems.toFixed(2)}</strong> хлебных единиц <br><br>
+			<button class="button is-success is-light" id="add-new-item">Добавить еще</button>
 		`;
+
 		resultBlock.innerHTML = `<div class="notification is-success">${message}</div>`;
+		resultBlock.querySelector('#add-new-item').addEventListener('click', () => {
+			summaryTableItems.push({
+				weight: productWeight,
+				carbo: realCarboCount,
+				bread: breadItems
+			});
+			renderSummaryTable();
+			resultBlock.innerHTML = '';
+			carboCountField.value = '';
+			productWeightField.value = '';
+			productWeightField.focus();
+		});
 	}
 
 	function renderError(message) {
@@ -40,7 +56,74 @@
 	function getFloatValue(node) {
 		let strVal = node.value || '';
 		strVal = strVal.trim().replace(',', '.');
-		return parseFloat(strVal).toFixed(2);
+		return parseFloat(strVal);
+	}
+
+	function renderSummaryTable() {
+		if (summaryTableItems.length === 0) {
+			summaryTable.innerHTML = '';
+			return;
+		}
+
+		const heading = `
+			<thead>
+				<tr>
+					<th colspan="2">Продукт</th>
+					<th>Углеводы</th>
+					<th>ХЕ</th>
+				</tr>
+			</thead>
+		`;
+
+		let rows = '';
+		let count = 1;
+		let totalCarbo = 0.0;
+		let totalBread = 0.0;
+
+		summaryTableItems.map(item => {
+			rows += `
+				<tr>
+					<td>#${count}</td>
+					<td>${item.weight.toFixed(2)} г.</td>
+					<td>${item.carbo.toFixed(2)} г.</td>
+					<td>${item.bread.toFixed(2)} ХЕ</td>
+				</tr>
+			`;
+			totalCarbo += item.carbo;
+			totalBread += item.bread;
+			count++;
+		});
+
+
+		const body = `<tbody>${rows}</tbody>`;
+
+		const footer = `
+			<tfoot>
+				<tr>
+					<th colspan="2">Итого</th>
+					<th>${totalCarbo.toFixed(2)} г.</th>
+					<th>${totalBread.toFixed(2)} ХЕ</th>
+				</tr>
+			</tfoot>
+		`;
+
+		summaryTable.innerHTML = `
+			<table class="table is-fullwidth">
+				${heading}
+				${body}
+				${footer}
+			</table>
+			<button id="reset-summary-table" class="button is-danger is-light">Сбросить</button>
+		`;
+
+		summaryTable.querySelector('#reset-summary-table').addEventListener('click', () => {
+			summaryTableItems = [];
+			renderSummaryTable();
+			resultBlock.innerHTML = '';
+			carboCountField.value = '';
+			productWeightField.value = '';
+			productWeightField.focus();
+		});
 	}
 
 	if ('serviceWorker' in navigator) {

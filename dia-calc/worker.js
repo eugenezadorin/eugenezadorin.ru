@@ -1,4 +1,4 @@
-const CACHE = 'dia-calc-v1';
+const CACHE = 'dia-calc-v2';
 const CACHED_FILES = [
     'app.js',
     'bulma.min.css',
